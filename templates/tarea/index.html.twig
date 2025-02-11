@@ -1,0 +1,42 @@
+{# templates/tarea/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1 class="text-center mb-4">Gestor de Tareas</h1>
+
+<div class="d-flex justify-content-between mb-4">
+    <a href="{{ path('app_tarea_add') }}" class="btn btn-primary">Añadir Nueva Tarea</a>
+    <a href="{{ path('app_tarea_index', {'completadas': completadas == 'true' ? 'false' : 'true'}) }}" class="btn btn-dark">
+        {% if completadas == 'true' %} Ver todas las tareas {% else %} Ver tareas completadas {% endif %}
+    </a>
+</div>
+
+<div class="list-group">
+    {% set prioridades = {0: 'No se estableció', 1: 'Muy alta', 2: 'Alta', 3: 'Media', 4: 'Baja', 5: 'Muy baja'} %}
+    {% for tarea in tareas %}
+        <div class="list-group-item d-flex justify-content-between align-items-center {% if tarea.completada %} bg-success text-white {% else %} bg-light {% endif %}">
+            <div>
+                <h5>{{ tarea.tarea }}</h5><br>
+                <p>Estado: {{ tarea.completada ? 'Completada' : 'Pendiente' }}</p>
+                {# Mostrar la prioridad como texto con el mapeo #}
+                <p>Prioridad: {{ prioridades[tarea.prioridad] }}</p>
+            </div>
+            <div class="d-flex">
+                {% if tarea.completada %}
+                    <span class="badge badge-success">Completada</span>
+                {% else %}
+                    <a href="{{ path('app_tarea_complete', {'id': tarea.id}) }}" class="btn btn-success btn-sm">Marcar como completada</a>
+                {% endif %}
+                <a href="{{ path('app_tarea_edit', {'id': tarea.id}) }}" class="btn btn-warning btn-sm ml-2">Editar</a>
+                 <a href="{{ path('app_tarea_delete', {'id': tarea.id}) }}" class="btn btn-danger btn-sm ml-2" onclick="return confirmDelete()">Eliminar</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<script>
+    function confirmDelete() {
+        return confirm("¿Estás seguro de que deseas eliminar esta tarea?");
+    }
+</script>
+
+{% endblock %}

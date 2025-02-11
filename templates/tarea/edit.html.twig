@@ -1,0 +1,21 @@
+{# templates/tarea/edit.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1 class="text-center mb-4">Editar Tarea</h1>
+
+<div class="col-md-6 mx-auto">
+    <form action="{{ path('app_tarea_edit', {'id': tarea.id}) }}" method="post">
+       {{ form_start(form) }}
+                <div class="form-group">
+                    <label for="{{ form.tarea.vars.id }}" class="font-weight-bold">Tarea</label>
+                    {{ form_widget(form.tarea, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.prioridad.vars.id }}" class="font-weight-bold">Prioridad</label>
+                    {{ form_widget(form.prioridad, {'attr': {'class': 'form-control'}}) }}
+                </div><br>
+            {{ form_end(form) }}
+    </form>
+</div>
+{% endblock %}
