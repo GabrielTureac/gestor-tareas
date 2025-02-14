@@ -3,7 +3,8 @@ nixPkgs = ["php", "phpPackages.composer", "mysql", "nodejs", "yarn"]
 
 [phases.build]
 cmds = [
-  "composer install --no-dev --optimize-autoloader",
+  "composer clear-cache",
+  "composer install --no-dev --optimize-autoloader --prefer-dist",
   "yarn install --frozen-lockfile",
   "yarn build"
 ]
