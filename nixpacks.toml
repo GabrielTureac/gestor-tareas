@@ -5,6 +5,7 @@ nixPkgs = ["php", "phpPackages.composer", "mysql", "nodejs", "yarn"]
 cmds = [
   "composer clear-cache",
   "composer install --no-dev --optimize-autoloader --prefer-dist",
+  "ls -al /app/vendor",
   "yarn install --frozen-lockfile",
   "yarn build"
 ]
