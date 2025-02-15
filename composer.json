@@ -59,8 +59,8 @@
     },
     "scripts": {
         "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "cache:clear": "rm -rf var/cache/*",
+            "assets:install": "cp -r assets/ public/"
         },
         "post-install-cmd": [
             "@auto-scripts"

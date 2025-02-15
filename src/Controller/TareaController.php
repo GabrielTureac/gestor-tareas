@@ -66,8 +66,8 @@ class TareaController extends AbstractController
                     'Baja' => 4,
                     'Muy baja' => 5,
                 ],
-                'expanded' => false, // Si lo pones en true, se mostrará como botones de opción (radio buttons)
-                'multiple' => false, // Solo se puede seleccionar una opción
+                'expanded' => false,
+                'multiple' => false,
             ])
             ->add('save', SubmitType::class, ['label' => 'Agregar Tarea', 'attr' => ['class' => 'btn btn-primary']])
             ->getForm();
@@ -76,7 +76,6 @@ class TareaController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($tarea->getTarea() === null || $tarea->getTarea() === '') {
-                // Esto previene la persistencia de una tarea vacía
                 $this->addFlash('error', 'El campo tarea no puede estar vacío.');
                 return $this->redirectToRoute('app_tarea_add');
             }
@@ -95,7 +94,6 @@ class TareaController extends AbstractController
     #[Route('/edit/{id}', name: 'app_tarea_edit')]
     public function edit(Tarea $tarea, Request $request, EntityManagerInterface $em): Response
     {
-        // Usar el formulario inyectado
         $form = $this->createFormBuilder($tarea)
             ->add('tarea', TextType::class, ['label' => 'Título'])
             ->add('prioridad', ChoiceType::class, [
