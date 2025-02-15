@@ -59,8 +59,8 @@
     },
     "scripts": {
         "auto-scripts": {
-            "cache:clear": "rm -rf var/cache/*",
-            "assets:install": "cp -r assets/ public/"
+            "cache:clear": "rm -rf var/cache || echo 'Skipping cache clear due to platform issues.'",
+            "assets:install": "if [ -d assets ]; then cp -r assets/ public/ || xcopy /E /I assets\\ public\\; fi"
         },
         "post-install-cmd": [
             "@auto-scripts"
