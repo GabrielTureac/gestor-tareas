@@ -59,8 +59,8 @@
     },
     "scripts": {
         "auto-scripts": {
-            "cache:clear": "rm -rf var/cache || echo 'Skipping cache clear due to platform issues.'",
-            "assets:install": "if [ -d assets ]; then cp -r assets/ public/ || xcopy /E /I assets\\ public\\; fi"
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
@@ -77,8 +77,5 @@
             "allow-contrib": false,
             "require": "7.2.*"
         }
-    },
-    "require-dev": {
-        "symfony/maker-bundle": "^1.62"
     }
 }
