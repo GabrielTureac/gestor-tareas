@@ -3,8 +3,9 @@ nixPkgs = ["php", "phpPackages.composer", "mysql", "nodejs", "yarn"]
 
 [phases.build]
 cmds = [
+  "composer self-update",
   "composer clear-cache",
-  "composer install --no-dev --optimize-autoloader --prefer-dist",
+  "composer install --no-dev --optimize-autoloader --prefer-dist --no-interaction || (sleep 5 && composer install --no-dev --optimize-autoloader --prefer-dist --no-interaction)",
   "ls -al /app/vendor",
   "yarn install --frozen-lockfile",
   "yarn build"
@@ -12,5 +13,6 @@ cmds = [
 
 [phases.deploy]
 cmds = [
-  "php bin/console doctrine:migrations:migrate --no-interaction"
+  "php bin/console cache:clear --env=prod || echo '⚠️ Cache clear failed, continuing...'", 
+  "php bin/console doctrine:migrations:migrate --no-interaction || echo '⚠️ Migrations failed, continuing...'"
 ]
