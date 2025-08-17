@@ -4,12 +4,13 @@
 {% block body %}
 <h1 class="text-center mb-4">Gestor de Tareas</h1>
 
-<div class="d-flex justify-content-between mb-4">
+<div class="d-flex justify-content-center gap-4 mb-4">
     <a href="{{ path('app_tarea_add') }}" class="btn btn-primary">Añadir Nueva Tarea</a>
     <a href="{{ path('app_tarea_index', {'completadas': completadas == 'true' ? 'false' : 'true'}) }}" class="btn btn-dark">
         {% if completadas == 'true' %} Ver todas las tareas {% else %} Ver tareas completadas {% endif %}
     </a>
 </div>
+
 
 <div class="list-group">
     {% set prioridades = {0: 'No se estableció', 1: 'Muy alta', 2: 'Alta', 3: 'Media', 4: 'Baja', 5: 'Muy baja'} %}
